@@ -6,6 +6,7 @@ class Rook < Piece
 
   def initialize(symbol,board,pos)
     super
+    @symbol = "rook"
   end
 
   def symbol

@@ -3,9 +3,10 @@ require_relative "slideable"
 
 class Bishop < Piece
   include Slideable
-
+  attr_reader :symbol
   def initialize(symbol,board,pos)
     super
+    @symbol = "bishop"
   end
 
   def symbol

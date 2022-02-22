@@ -6,6 +6,7 @@ class Queen < Piece
 
   def initialize(symbol,board,pos)
     super
+    @symbol = "queen"
   end
 
   def symbol

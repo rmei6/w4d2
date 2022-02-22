@@ -4,9 +4,13 @@ require 'byebug'
 
 class NullPiece < Piece
   include Singleton
+  attr_accessor :color,:symbol
   def initialize
     @color = nil
     @symbol = ""
   end
-  attr_accessor :color,:symbol
+
+  def moves
+    []
+  end
 end

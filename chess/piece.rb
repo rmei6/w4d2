@@ -10,7 +10,8 @@ class Piece
   end
 
   def valid_moves
-    poss = moves
+    moves
+    poss = HORIZONTAL_DIRS + DIAGONAL_DIRS
     valid = []
     poss.each do |direction|
       (0...direction.length).each do |i|
