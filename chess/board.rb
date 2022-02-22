@@ -13,7 +13,7 @@ class Board
     @null_piece = NullPiece.instance
     arrange_pieces
   end
-
+      #%i(white black) -> [:white, :black]
   def arrange_pieces
     (0...8).each do |col|
       rows[0][col] = Piece.new("white",self,[0,col])
