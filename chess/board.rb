@@ -10,7 +10,7 @@ class Board
   attr_reader :rows
   def initialize
     @rows = Array.new(8) {Array.new(8)}
-    @null_piece = Nullpiece.new
+    @null_piece = NullPiece.instance
     arrange_pieces
   end
 

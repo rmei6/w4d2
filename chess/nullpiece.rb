@@ -1,10 +1,12 @@
 require_relative "piece"
-class Nullpiece < Piece
-  include Singleton
+require "singleton"
+require 'byebug'
 
-  attr_reader :color,:symbol
+class NullPiece < Piece
+  include Singleton
   def initialize
     @color = nil
-    @symbol = nil
+    @symbol = ""
   end
+  attr_accessor :color,:symbol
 end
