@@ -17,7 +17,8 @@ class Board
     end
   end
 
-  def move_piece(start_pos,end_pos)
+  def move_piece(color,start_pos,end_pos)
+    raise "Can't put two same positions" if start_pos == end_pos
     raise "No piece at that position" if self[start_pos].nil?
     if !(0...8).include?(end_pos.first) || !(0...8).include?(end_pos.last)
       raise "Can't move to that position" 
