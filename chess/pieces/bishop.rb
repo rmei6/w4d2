@@ -1,12 +1,12 @@
 require_relative "piece"
-require_relative "slideable"
+require_relative "../slideable"
 
-class Rook < Piece
+class Bishop < Piece
   include Slideable
-
+  attr_reader :symbol
   def initialize(symbol,board,pos)
     super
-    @symbol = "rook"
+    @symbol = "bishop"
   end
 
   def symbol
@@ -14,6 +14,6 @@ class Rook < Piece
   end
   private
   def move_dirs
-    "horizontally/vertically"
+    "diagonally"
   end
 end

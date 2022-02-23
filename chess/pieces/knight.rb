@@ -1,16 +1,16 @@
 require_relative "piece"
-require_relative "stepable"
+require_relative "../stepable"
 
-class King < Piece
+class Knight < Piece
   include Stepable
   attr_reader :symbol
   def initialize(symbol,board,pos)
     super
-    @symbol = "king"
+    @symbol = "knight"  
   end
-  
+
   private
   def move_dirs
-    "one"
+    "L"
   end
 end

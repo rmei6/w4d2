@@ -4,7 +4,7 @@ require 'byebug'
 
 class NullPiece < Piece
   include Singleton
-  attr_accessor :color,:symbol
+  attr_reader :color,:symbol
   def initialize
     @color = nil
     @symbol = ""
