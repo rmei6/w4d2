@@ -18,11 +18,26 @@ class Board
   end
 
   def move_piece(color,start_pos,end_pos)
+    # p "self"
+    # self.rows.each do |row|
+    #   p row.map {|piece| piece.class}
+    # end
+    # p color
+    # p self[start_pos].color
     raise "Can't put two same positions" if start_pos == end_pos
     raise "No piece at that position" if self[start_pos].nil?
     raise "Can't move to that position" unless valid_pos?(end_pos)
     raise "Invalid start position" unless valid_pos?(start_pos)
     raise "Not your color" unless self[start_pos].color == color
+    unless self[start_pos].valid_moves.include?(end_pos)   #check if move is valid
+      raise "Not a valid move. Will leave you in check" 
+    end
+    self[end_pos] = self[start_pos]
+    self[start_pos] = null_piece
+    self[end_pos].pos = end_pos
+  end
+
+  def move_piece!(start_pos,end_pos)
     self[end_pos] = self[start_pos]
     self[start_pos] = null_piece
     self[end_pos].pos = end_pos

@@ -48,13 +48,15 @@ class Pawn < Piece
     row,col = pos
     if color == :white
       pos = [[row+1,col+1],[row+1,col-1]]
+      pos.select!{|coor| board.valid_pos?(coor)}
       pos.each do |coor|
-        attacks << coor if !board[coor].is_a?(NullPiece) && board[coor].color != :white
+        attacks << coor unless board[coor].is_a?(NullPiece) || board[coor].color == :white
       end
     else
       pos = [[row-1,col+1],[row-1,col-1]]
+      pos.select!{|coor| board.valid_pos?(coor)}
       pos.each do |coor|
-        attacks << coor if !board[coor].is_a?(NullPiece) && board[coor].color == :white
+        attacks << coor unless board[coor].is_a?(NullPiece) || board[coor].color == :black
       end
     end
     attacks

@@ -1,7 +1,6 @@
 module Slideable
   def moves
     steps = move_dirs
-    p steps
     positions = []
     steps.each do |math|
       positions += grow_unblocked_moves_in_dir(math.first,math.last)

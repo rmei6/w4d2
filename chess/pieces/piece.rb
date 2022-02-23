@@ -28,8 +28,8 @@ class Piece
   private
   def my_dup
     new_board = Board.new
-    black = {:Rook=>[],:Bishop=>[],:Queen=>[],:Knight=>[],:King=>[],:Pawn=>[]}
-    white = {:Rook=>[],:Bishop=>[],:Queen=>[],:Knight=>[],:King=>[],:Pawn=>[]}
+    black = {Rook=>[],Bishop=>[],Queen=>[],Knight=>[],King=>[],Pawn=>[]}
+    white = {Rook=>[],Bishop=>[],Queen=>[],Knight=>[],King=>[],Pawn=>[]}
     (0...8).each do |i|
       (0...8).each do |j|
         piece = board[[i,j]]
@@ -40,22 +40,32 @@ class Piece
             black[piece.class] << piece.pos
           end
         end
-        new_board[[i,j]] = new_board.null_piece
+        new_board[[i,j]] = new_board[[3,0]] #know that this is nullpiece at initialization
       end
     end
-    black.each_pair do |role,pos|
-      new_board[pos] = role.new(:black,new_board,pos)
+    # p black
+    # p white
+    black.each_pair do |role,positions|
+      positions.each do |pos|
+        piece = role.new(:black,new_board,pos)
+        new_board.add_piece(piece,pos)
+      end
     end
-    white.each_pair do |role,pos|
-      new_board[pos] = role.new(:white,new_board,pos)
+    white.each_pair do |role,positions|
+      positions.each do |pos|
+        new_board[pos] = role.new(:white,new_board,pos)
+      end
     end
     new_board
   end
 
   def move_into_check?(end_pos)
     new_board = my_dup
-    new_board.move_piece(color,pos,end_pos)
-    new_board.in_check?
+    # new_board.rows.each do |row|
+    #   p row.map {|piece| piece.class}
+    # end
+    new_board.move_piece!(pos,end_pos)
+    new_board.in_check?(color)
   end
 
 end
