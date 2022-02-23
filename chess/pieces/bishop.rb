@@ -9,9 +9,6 @@ class Bishop < Piece
     @symbol = "bishop"
   end
 
-  def symbol
-    color
-  end
   private
   def move_dirs
     "diagonally"

@@ -22,10 +22,15 @@ class Piece
             valid.concat(direction[0..i])
           end
           break
+        else
+          valid.concat(direction) if i+1 == direction.length
         end
-        valid.concat(direction) if i+1 == direction.length
       end
     end
     valid
+  end
+
+  def to_s
+    symbol
   end
 end

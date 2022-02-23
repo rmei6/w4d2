@@ -18,7 +18,7 @@ module Slideable
       dir = hor if math == [1,0]  #switch to horizontal dirs
       direction = []
       row,col = pos
-      until !(0...8).include?(row) || !(0...8).include?(col)
+      while (0...8).include?(row) && (0...8).include?(col)
         row += math.first
         col += math.last
         direction << [row,col]
