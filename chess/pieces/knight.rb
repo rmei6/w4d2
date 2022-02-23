@@ -11,6 +11,6 @@ class Knight < Piece
 
   private
   def move_dirs
-    "L"
+    [[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]]
   end
 end

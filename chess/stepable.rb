@@ -1,27 +1,27 @@
 module Stepable
   def moves
     positions = []
-    dir = move_dirs
-    steps = []
-    case dir
-      when "L"
-        steps.concat([[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]])
-      when "one"
-        steps.concat([[1,0],[0,1],[-1,0],[0,-1]])
-      else
-        return []
-    end
+    steps = move_dirs
     steps.each do |math|
-      row,col = pos
-      row += math.first
-      col += math.last
-      positions << [row,col]
+      positions.concat(grow_unblocked_moves_in_dir(math.first,math.last))
     end
     positions
   end
 
   private
   def moves_diff
-    nil
+    raise NotImplementedError
+  end
+
+  def grow_unblocked_moves_in_dir(dx,dy)
+    direction = []  
+    row,col = pos
+    row += dx
+    col += dy
+    return direction unless board.valid_pos?([row,col])
+    if board[[row,col]].is_a?(NullPiece) || board[[row,col]].color != self.color
+      direction << [row,col]
+    end
+    direction
   end
 end

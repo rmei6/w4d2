@@ -4,14 +4,19 @@ require_relative "cursor"
 
 class Display
   attr_reader :board,:cursor
+  attr_accessor :debug
   def initialize(board)
     @board = board
     @cursor = Cursor.new([0,0],board)
+    @debug = false
   end
   
   def render
     system("clear")
     build_board.each { |row| puts row.join(" ")}
+    puts "Available Moves: #{board[cursor.cursor_pos].moves}" if debug
+    puts "White in Check?: #{board.in_check?(:white)}" if debug
+    puts "Black in Check?: #{board.in_check?(:black)}" if debug
   end
 
   def build_board

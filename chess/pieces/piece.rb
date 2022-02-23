@@ -10,22 +10,9 @@ class Piece
   end
 
   def valid_moves
-    moves
-    poss = HORIZONTAL_DIRS + DIAGONAL_DIRS
     valid = []
-    poss.each do |direction|
-      (0...direction.length).each do |i|
-        if board[direction[i]].is_a?(Piece)
-          if board[direction[i]].color == color
-            valid.concat(direction[0...i])
-          else
-            valid.concat(direction[0..i])
-          end
-          break
-        else
-          valid.concat(direction) if i+1 == direction.length
-        end
-      end
+    moves.each do |pos|
+      valid << pos unless move_into_check?(pos)
     end
     valid
   end
@@ -37,4 +24,38 @@ class Piece
   def Symbol
     symbol
   end
+
+  private
+  def my_dup
+    new_board = Board.new
+    black = {:Rook=>[],:Bishop=>[],:Queen=>[],:Knight=>[],:King=>[],:Pawn=>[]}
+    white = {:Rook=>[],:Bishop=>[],:Queen=>[],:Knight=>[],:King=>[],:Pawn=>[]}
+    (0...8).each do |i|
+      (0...8).each do |j|
+        piece = board[[i,j]]
+        unless piece.is_a?(NullPiece)
+          if piece.color == :white
+            white[piece.class] << piece.pos
+          else
+            black[piece.class] << piece.pos
+          end
+        end
+        new_board[[i,j]] = new_board.null_piece
+      end
+    end
+    black.each_pair do |role,pos|
+      new_board[pos] = role.new(:black,new_board,pos)
+    end
+    white.each_pair do |role,pos|
+      new_board[pos] = role.new(:white,new_board,pos)
+    end
+    new_board
+  end
+
+  def move_into_check?(end_pos)
+    new_board = my_dup
+    new_board.move_piece(color,pos,end_pos)
+    new_board.in_check?
+  end
+
 end

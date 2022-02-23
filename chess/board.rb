@@ -43,6 +43,38 @@ class Board
   def add_piece(piece,pos)
     self[pos] = piece if valid_pos?(pos)
   end
+
+  def checkmate?(color)
+    return false unless in_check?(color)
+    moves = []
+    rows.each do |row|
+      row.each do |piece|
+        moves.concat(piece.valid_moves) if piece.color == color
+      end
+    end
+    moves.empty?
+  end
+
+  def in_check?(color)
+    king_pos = find_king(color)
+    moves = []
+    rows.each do |row|
+      row.each do |piece|
+        if piece.color != color
+          return true if piece.moves.include?(king_pos)
+        end
+      end
+    end
+    false
+  end
+
+  def find_king(color)
+    rows.each do |row|
+      row.each do |piece|
+        return piece.pos if piece.is_a?(King) && piece.color == color
+      end
+    end
+  end
   private
   attr_reader :null_piece
 end

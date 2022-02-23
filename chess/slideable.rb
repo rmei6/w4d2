@@ -1,37 +1,47 @@
 module Slideable
   def moves
-    dir = move_dirs
-    steps = []
-    dir = "diag"
-    case dir
-      when "diagonally"
-        steps.concat([[1,1],[-1,1],[-1,-1],[1,-1]])
-      when "horizontally/vertically"
-        steps.concat([[1,0],[0,1],[-1,0],[0,-1]])
-        dir = "hor"
-      when "both"
-        steps.concat([[1,1],[-1,1],[-1,-1],[1,-1],[1,0],[0,1],[-1,0],[0,-1]])
-      else
-        return []
-    end
+    steps = move_dirs
+    p steps
+    positions = []
     steps.each do |math|
-      dir = hor if math == [1,0]  #switch to horizontal dirs
-      direction = []
-      row,col = pos
-      while (0...8).include?(row) && (0...8).include?(col)
-        row += math.first
-        col += math.last
-        direction << [row,col]
-      end
-      HORIZONTAL_DIRS << direction if dir == "hor"
-      DIAGONAL_DIRS << direction if dir == "diag"
+      positions += grow_unblocked_moves_in_dir(math.first,math.last)
     end
+    positions
+  end
+
+  def horizontal_dirs
+    HORIZONTAL_DIRS
+  end
+
+  def diagonal_dirs
+    DIAGONAL_DIRS
   end
 
   private
   def move_dirs
-    nil
+    raise NotImplementedError
   end
-  HORIZONTAL_DIRS = []
-  DIAGONAL_DIRS = []
+
+  def grow_unblocked_moves_in_dir(dx,dy)
+    direction = []  
+    row,col = pos
+    row += dx
+    col += dy
+    while (0...8).include?(row) && (0...8).include?(col)
+      if board[[row,col]].is_a?(NullPiece)
+        direction << [row,col]
+      elsif board[[row,col]].color != self.color
+        direction << [row,col]
+        break
+      else
+        break
+      end
+      row += dx
+      col += dy
+    end
+    direction
+  end
+
+  HORIZONTAL_DIRS = [[1,0],[0,1],[-1,0],[0,-1]].freeze
+  DIAGONAL_DIRS = [[1,1],[-1,1],[-1,-1],[1,-1]].freeze
 end
