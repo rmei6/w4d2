@@ -6,7 +6,7 @@ class King < Piece
   attr_reader :symbol
   def initialize(symbol,board,pos)
     super
-    @symbol = "king"
+    @symbol = :king
   end
   
   private

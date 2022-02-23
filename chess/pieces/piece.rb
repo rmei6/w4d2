@@ -6,7 +6,7 @@ class Piece
   def initialize(symbol,board,pos)
     @color = symbol
     @board = board
-    @pos = pos        #use board.place piece during initialization to place piece
+    @pos = pos        #can use board.place piece during initialization to place piece
   end
 
   def valid_moves
@@ -31,6 +31,10 @@ class Piece
   end
 
   def to_s
+    symbol.to_s
+  end
+
+  def Symbol
     symbol
   end
 end

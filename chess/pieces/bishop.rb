@@ -6,7 +6,7 @@ class Bishop < Piece
   attr_reader :symbol
   def initialize(symbol,board,pos)
     super
-    @symbol = "bishop"
+    @symbol = :bishop
   end
 
   private

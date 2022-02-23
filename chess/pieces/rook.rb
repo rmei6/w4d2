@@ -6,7 +6,7 @@ class Rook < Piece
   attr_reader :symbol
   def initialize(symbol,board,pos)
     super
-    @symbol = "rook"
+    @symbol = :rook
   end
 
   private

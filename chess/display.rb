@@ -39,10 +39,7 @@ end
 
 board = Board.new
 display = Display.new(board)
-i = 0
 while true
   display.render
   display.cursor.get_input
-  p i
-  i += 1
 end

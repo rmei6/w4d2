@@ -4,7 +4,7 @@ class Pawn < Piece
   attr_reader :symbol
   def initialize(symbol,board,pos)
     super
-    @symbol = "pawn"
+    @symbol = :pawn
   end
 
   def moves
